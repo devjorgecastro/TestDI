@@ -1,6 +1,8 @@
 package com.cornershopapp.testdaggerhilt.data.datasource
 
-class LocalDataSource: DataSource {
+import javax.inject.Inject
+
+class LocalDataSource @Inject constructor() : DataSource {
     override fun getData(): List<String> {
         return listOf(
             "Data 1",
