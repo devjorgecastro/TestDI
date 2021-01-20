@@ -1,11 +1,13 @@
 package com.cornershopapp.testdaggerhilt.presentation
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.cornershopapp.testdaggerhilt.domain.usecase.GetData
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 
-class MainViewModel(
+@ActivityRetainedScoped
+class MainViewModel @ViewModelInject constructor(
     private val getDataUseCase: GetData
 ) : ViewModel() {
 
@@ -13,13 +15,5 @@ class MainViewModel(
 
     fun loadData() {
         data.value = getDataUseCase()
-    }
-
-    class ViewModelFactory(
-        private val getDataUseCase: GetData
-    ) : ViewModelProvider.NewInstanceFactory() {
-
-        override fun <T : ViewModel?> create(modelClass: Class<T>) =
-            MainViewModel(getDataUseCase) as T
     }
 }

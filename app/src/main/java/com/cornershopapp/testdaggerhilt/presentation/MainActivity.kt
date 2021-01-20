@@ -6,16 +6,15 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import com.cornershopapp.testdaggerhilt.R
-import com.cornershopapp.testdaggerhilt.di.ViewModelInjector
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val mainViewModel by viewModels<MainViewModel> {
-        ViewModelInjector.provideMainViewModel()
-    }
+    @Inject
+    lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
