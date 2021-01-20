@@ -1,4 +1,4 @@
-package com.cornershopapp.testdaggerhilt
+package com.cornershopapp.testdaggerhilt.presentation
 
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -6,8 +6,16 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import com.cornershopapp.testdaggerhilt.R
+import com.cornershopapp.testdaggerhilt.di.ViewModelInjector
 
 class MainActivity : AppCompatActivity() {
+
+    private val mainViewModel by viewModels<MainViewModel> {
+        ViewModelInjector.provideMainViewModel()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +26,16 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
+
+        setupListener()
+        mainViewModel.loadData()
+    }
+
+    private fun setupListener() {
+        mainViewModel.data.observe(this, {
+            val data = it
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
